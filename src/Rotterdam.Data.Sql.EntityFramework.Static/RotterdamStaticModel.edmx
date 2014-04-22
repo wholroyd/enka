@@ -1,0 +1,1044 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RotterdamStaticModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dataspace">
+          <Key>
+            <PropertyRef Name="DataspaceId" />
+          </Key>
+          <Property Name="DataspaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProviderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" />
+          <Property Name="Realm" Type="nvarchar" MaxLength="64" />
+          <Property Name="Object" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="IsIngested" Type="bit" Nullable="false" />
+          <Property Name="Bookmark" Type="datetime" />
+          <Property Name="Configuration" Type="xml" />
+          <Property Name="Filter" Type="text" />
+          <Property Name="Cachespace" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="DataspaceHierarchy">
+          <Key>
+            <PropertyRef Name="DataspaceHierarchyId" />
+          </Key>
+          <Property Name="DataspaceHierarchyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataspaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataspacePropertyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RegularExpression" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="DataspaceHierarchyMapping">
+          <Key>
+            <PropertyRef Name="DataspaceHierarchyMappingId" />
+          </Key>
+          <Property Name="DataspaceHierarchyMappingId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataspaceHierarchyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataspaceProperty">
+          <Key>
+            <PropertyRef Name="DataspacePropertyId" />
+          </Key>
+          <Property Name="DataspacePropertyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataspaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsKey" Type="bit" Nullable="false" />
+          <Property Name="IsSystem" Type="bit" Nullable="false" />
+          <Property Name="Property" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Regex" Type="nvarchar" MaxLength="256" />
+          <Property Name="Flag" Type="nvarchar" MaxLength="256" />
+          <Property Name="SystemName" Type="nvarchar" MaxLength="24" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="DataspaceReference">
+          <Key>
+            <PropertyRef Name="ProviderDataspaceReferenceId" />
+          </Key>
+          <Property Name="ProviderDataspaceReferenceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataspaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedEntityId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataspaceTypeMapping">
+          <Key>
+            <PropertyRef Name="DataspaceTypeMappingId" />
+          </Key>
+          <Property Name="DataspaceTypeMappingId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataspaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataspaceTypePropertyMapping">
+          <Key>
+            <PropertyRef Name="DataspaceTypeMappingAttributeId" />
+          </Key>
+          <Property Name="DataspaceTypeMappingAttributeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataspacePropertyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedTypePropertyId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManagedEntity">
+          <Key>
+            <PropertyRef Name="ManagedEntityId" />
+          </Key>
+          <Property Name="ManagedEntityId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManagedTree">
+          <Key>
+            <PropertyRef Name="ManagedTreeId" />
+          </Key>
+          <Property Name="ManagedTreeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'hierarchyid' is currently not supported for the target Entity Framework version; the column 'Rotterdam.dbo.ManagedTreeEntity' in the table 'ManagedTreeHierarchy' was excluded.-->
+        <EntityType Name="ManagedTreeEntity">
+          <Key>
+            <PropertyRef Name="ManagedTreeEntityId" />
+          </Key>
+          <Property Name="ManagedTreeEntityId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedTreeEntityParentId" Type="uniqueidentifier" />
+          <Property Name="ManagedTreeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedEntityId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'hierarchyid' is currently not supported for the target Entity Framework version; the column 'Rotterdam.dbo.ManagedType' in the table 'HierarchyId' was excluded.-->
+        <EntityType Name="ManagedType">
+          <Key>
+            <PropertyRef Name="ManagedTypeId" />
+          </Key>
+          <Property Name="ManagedTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedTypeTableName" Type="nvarchar" MaxLength="128" />
+          <Property Name="ManagedTypeViewName" Type="nvarchar" MaxLength="128" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="IsAbstract" Type="bit" Nullable="false" />
+          <Property Name="IsSingleton" Type="bit" Nullable="false" />
+          <Property Name="IsExtension" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManagedTypeProperty">
+          <Key>
+            <PropertyRef Name="ManagedTypePropertyId" />
+          </Key>
+          <Property Name="ManagedTypePropertyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ColumnName" Type="nvarchar" MaxLength="128" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="IsRequired" Type="bit" Nullable="false" />
+          <Property Name="IsPrimaryKey" Type="bit" Nullable="false" />
+          <Property Name="IsCaseSensitive" Type="bit" Nullable="false" />
+          <Property Name="IsWriteableByUser" Type="bit" Nullable="false" />
+          <Property Name="IsWriteableByDataspace" Type="bit" Nullable="false" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="MinLength" Type="int" Nullable="false" />
+          <Property Name="MaxLength" Type="int" Nullable="false" />
+          <Property Name="MinValue" Type="int" />
+          <Property Name="MaxValue" Type="int" />
+          <Property Name="RegEx" Type="nvarchar" MaxLength="255" />
+          <Property Name="EnumTypeId" Type="uniqueidentifier" />
+          <Property Name="DefaultValue" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProviderName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="AssemblyName" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="AssemblyPath" Type="nvarchar" MaxLength="2048" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="IsIngested" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProviderEndpoint">
+          <Key>
+            <PropertyRef Name="ProviderEndpointId" />
+          </Key>
+          <Property Name="ProviderEndpointId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="Endpoint" Type="nvarchar" MaxLength="512" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DataspaceHierarchy_Dataspace">
+          <End Role="Dataspace" Type="Self.Dataspace" Multiplicity="1" />
+          <End Role="DataspaceHierarchy" Type="Self.DataspaceHierarchy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dataspace">
+              <PropertyRef Name="DataspaceId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchy">
+              <PropertyRef Name="DataspaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceHierarchy_DataspaceProperty">
+          <End Role="DataspaceProperty" Type="Self.DataspaceProperty" Multiplicity="1" />
+          <End Role="DataspaceHierarchy" Type="Self.DataspaceHierarchy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataspaceProperty">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchy">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceHierarchyMapping_DataspaceHierarchy">
+          <End Role="DataspaceHierarchy" Type="Self.DataspaceHierarchy" Multiplicity="1" />
+          <End Role="DataspaceHierarchyMapping" Type="Self.DataspaceHierarchyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataspaceHierarchy">
+              <PropertyRef Name="DataspaceHierarchyId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchyMapping">
+              <PropertyRef Name="DataspaceHierarchyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceHierarchyMapping_ManagedType">
+          <End Role="ManagedType" Type="Self.ManagedType" Multiplicity="1" />
+          <End Role="DataspaceHierarchyMapping" Type="Self.DataspaceHierarchyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchyMapping">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceReference_ManagedEntity">
+          <End Role="ManagedEntity" Type="Self.ManagedEntity" Multiplicity="1" />
+          <End Role="DataspaceReference" Type="Self.DataspaceReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedEntity">
+              <PropertyRef Name="ManagedEntityId" />
+            </Principal>
+            <Dependent Role="DataspaceReference">
+              <PropertyRef Name="ManagedEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypeMapping_Dataspace">
+          <End Role="Dataspace" Type="Self.Dataspace" Multiplicity="1" />
+          <End Role="DataspaceTypeMapping" Type="Self.DataspaceTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dataspace">
+              <PropertyRef Name="DataspaceId" />
+            </Principal>
+            <Dependent Role="DataspaceTypeMapping">
+              <PropertyRef Name="DataspaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypeMapping_DataspaceTypeMapping">
+          <End Role="ManagedType" Type="Self.ManagedType" Multiplicity="1" />
+          <End Role="DataspaceTypeMapping" Type="Self.DataspaceTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="DataspaceTypeMapping">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypePropertyMapping_DataspaceProperty">
+          <End Role="DataspaceProperty" Type="Self.DataspaceProperty" Multiplicity="1" />
+          <End Role="DataspaceTypePropertyMapping" Type="Self.DataspaceTypePropertyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataspaceProperty">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Principal>
+            <Dependent Role="DataspaceTypePropertyMapping">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypePropertyMapping_ManagedTypeProperty">
+          <End Role="ManagedTypeProperty" Type="Self.ManagedTypeProperty" Multiplicity="1" />
+          <End Role="DataspaceTypePropertyMapping" Type="Self.DataspaceTypePropertyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedTypeProperty">
+              <PropertyRef Name="ManagedTypePropertyId" />
+            </Principal>
+            <Dependent Role="DataspaceTypePropertyMapping">
+              <PropertyRef Name="ManagedTypePropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedEntity_ManagedType">
+          <End Role="ManagedType" Type="Self.ManagedType" Multiplicity="1" />
+          <End Role="ManagedEntity" Type="Self.ManagedEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="ManagedEntity">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTreeEntity_ManagedEntity">
+          <End Role="ManagedEntity" Type="Self.ManagedEntity" Multiplicity="1" />
+          <End Role="ManagedTreeEntity" Type="Self.ManagedTreeEntity" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedEntity">
+              <PropertyRef Name="ManagedEntityId" />
+            </Principal>
+            <Dependent Role="ManagedTreeEntity">
+              <PropertyRef Name="ManagedTreeEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTreeEntity_ManagedTree">
+          <End Role="ManagedTree" Type="Self.ManagedTree" Multiplicity="1" />
+          <End Role="ManagedTreeEntity" Type="Self.ManagedTreeEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedTree">
+              <PropertyRef Name="ManagedTreeId" />
+            </Principal>
+            <Dependent Role="ManagedTreeEntity">
+              <PropertyRef Name="ManagedTreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTreeEntityParentId">
+          <End Role="ManagedTreeEntity" Type="Self.ManagedTreeEntity" Multiplicity="1" />
+          <End Role="ManagedTreeEntity1" Type="Self.ManagedTreeEntity" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedTreeEntity">
+              <PropertyRef Name="ManagedTreeEntityId" />
+            </Principal>
+            <Dependent Role="ManagedTreeEntity1">
+              <PropertyRef Name="ManagedTreeEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTypeProperty_ManagedType">
+          <End Role="ManagedType" Type="Self.ManagedType" Multiplicity="1" />
+          <End Role="ManagedTypeProperty" Type="Self.ManagedTypeProperty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="ManagedTypeProperty">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RotterdamStaticModelStoreContainer">
+          <EntitySet Name="Dataspace" EntityType="Self.Dataspace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataspaceHierarchy" EntityType="Self.DataspaceHierarchy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataspaceHierarchyMapping" EntityType="Self.DataspaceHierarchyMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataspaceProperty" EntityType="Self.DataspaceProperty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataspaceReference" EntityType="Self.DataspaceReference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataspaceTypeMapping" EntityType="Self.DataspaceTypeMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataspaceTypePropertyMapping" EntityType="Self.DataspaceTypePropertyMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagedEntity" EntityType="Self.ManagedEntity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagedTree" EntityType="Self.ManagedTree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagedTreeEntity" EntityType="Self.ManagedTreeEntity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagedType" EntityType="Self.ManagedType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagedTypeProperty" EntityType="Self.ManagedTypeProperty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProviderEndpoint" EntityType="Self.ProviderEndpoint" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DataspaceHierarchy_Dataspace" Association="Self.FK_DataspaceHierarchy_Dataspace">
+            <End Role="Dataspace" EntitySet="Dataspace" />
+            <End Role="DataspaceHierarchy" EntitySet="DataspaceHierarchy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceHierarchy_DataspaceProperty" Association="Self.FK_DataspaceHierarchy_DataspaceProperty">
+            <End Role="DataspaceProperty" EntitySet="DataspaceProperty" />
+            <End Role="DataspaceHierarchy" EntitySet="DataspaceHierarchy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceHierarchyMapping_DataspaceHierarchy" Association="Self.FK_DataspaceHierarchyMapping_DataspaceHierarchy">
+            <End Role="DataspaceHierarchy" EntitySet="DataspaceHierarchy" />
+            <End Role="DataspaceHierarchyMapping" EntitySet="DataspaceHierarchyMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceHierarchyMapping_ManagedType" Association="Self.FK_DataspaceHierarchyMapping_ManagedType">
+            <End Role="ManagedType" EntitySet="ManagedType" />
+            <End Role="DataspaceHierarchyMapping" EntitySet="DataspaceHierarchyMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceReference_ManagedEntity" Association="Self.FK_DataspaceReference_ManagedEntity">
+            <End Role="ManagedEntity" EntitySet="ManagedEntity" />
+            <End Role="DataspaceReference" EntitySet="DataspaceReference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypeMapping_Dataspace" Association="Self.FK_DataspaceTypeMapping_Dataspace">
+            <End Role="Dataspace" EntitySet="Dataspace" />
+            <End Role="DataspaceTypeMapping" EntitySet="DataspaceTypeMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypeMapping_DataspaceTypeMapping" Association="Self.FK_DataspaceTypeMapping_DataspaceTypeMapping">
+            <End Role="ManagedType" EntitySet="ManagedType" />
+            <End Role="DataspaceTypeMapping" EntitySet="DataspaceTypeMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypePropertyMapping_DataspaceProperty" Association="Self.FK_DataspaceTypePropertyMapping_DataspaceProperty">
+            <End Role="DataspaceProperty" EntitySet="DataspaceProperty" />
+            <End Role="DataspaceTypePropertyMapping" EntitySet="DataspaceTypePropertyMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypePropertyMapping_ManagedTypeProperty" Association="Self.FK_DataspaceTypePropertyMapping_ManagedTypeProperty">
+            <End Role="ManagedTypeProperty" EntitySet="ManagedTypeProperty" />
+            <End Role="DataspaceTypePropertyMapping" EntitySet="DataspaceTypePropertyMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedEntity_ManagedType" Association="Self.FK_ManagedEntity_ManagedType">
+            <End Role="ManagedType" EntitySet="ManagedType" />
+            <End Role="ManagedEntity" EntitySet="ManagedEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTreeEntity_ManagedEntity" Association="Self.FK_ManagedTreeEntity_ManagedEntity">
+            <End Role="ManagedEntity" EntitySet="ManagedEntity" />
+            <End Role="ManagedTreeEntity" EntitySet="ManagedTreeEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTreeEntity_ManagedTree" Association="Self.FK_ManagedTreeEntity_ManagedTree">
+            <End Role="ManagedTree" EntitySet="ManagedTree" />
+            <End Role="ManagedTreeEntity" EntitySet="ManagedTreeEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTreeEntityParentId" Association="Self.FK_ManagedTreeEntityParentId">
+            <End Role="ManagedTreeEntity" EntitySet="ManagedTreeEntity" />
+            <End Role="ManagedTreeEntity1" EntitySet="ManagedTreeEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTypeProperty_ManagedType" Association="Self.FK_ManagedTypeProperty_ManagedType">
+            <End Role="ManagedType" EntitySet="ManagedType" />
+            <End Role="ManagedTypeProperty" EntitySet="ManagedTypeProperty" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RotterdamStaticModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RotterdamContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dataspaces" EntityType="RotterdamStaticModel.Dataspace" />
+          <EntitySet Name="DataspaceHierarchies" EntityType="RotterdamStaticModel.DataspaceHierarchy" />
+          <EntitySet Name="DataspaceHierarchyMappings" EntityType="RotterdamStaticModel.DataspaceHierarchyMapping" />
+          <EntitySet Name="DataspaceProperties" EntityType="RotterdamStaticModel.DataspaceProperty" />
+          <EntitySet Name="DataspaceReferences" EntityType="RotterdamStaticModel.DataspaceReference" />
+          <EntitySet Name="DataspaceTypeMappings" EntityType="RotterdamStaticModel.DataspaceTypeMapping" />
+          <EntitySet Name="DataspaceTypePropertyMappings" EntityType="RotterdamStaticModel.DataspaceTypePropertyMapping" />
+          <EntitySet Name="ManagedEntities" EntityType="RotterdamStaticModel.ManagedEntity" />
+          <EntitySet Name="ManagedTrees" EntityType="RotterdamStaticModel.ManagedTree" />
+          <EntitySet Name="ManagedTreeEntities" EntityType="RotterdamStaticModel.ManagedTreeEntity" />
+          <EntitySet Name="ManagedTypes" EntityType="RotterdamStaticModel.ManagedType" />
+          <EntitySet Name="ManagedTypeProperties" EntityType="RotterdamStaticModel.ManagedTypeProperty" />
+          <EntitySet Name="Providers" EntityType="RotterdamStaticModel.Provider" />
+          <EntitySet Name="ProviderEndpoints" EntityType="RotterdamStaticModel.ProviderEndpoint" />
+          <AssociationSet Name="FK_DataspaceHierarchy_Dataspace" Association="RotterdamStaticModel.FK_DataspaceHierarchy_Dataspace">
+            <End Role="Dataspace" EntitySet="Dataspaces" />
+            <End Role="DataspaceHierarchy" EntitySet="DataspaceHierarchies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypeMapping_Dataspace" Association="RotterdamStaticModel.FK_DataspaceTypeMapping_Dataspace">
+            <End Role="Dataspace" EntitySet="Dataspaces" />
+            <End Role="DataspaceTypeMapping" EntitySet="DataspaceTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceHierarchy_DataspaceProperty" Association="RotterdamStaticModel.FK_DataspaceHierarchy_DataspaceProperty">
+            <End Role="DataspaceProperty" EntitySet="DataspaceProperties" />
+            <End Role="DataspaceHierarchy" EntitySet="DataspaceHierarchies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceHierarchyMapping_DataspaceHierarchy" Association="RotterdamStaticModel.FK_DataspaceHierarchyMapping_DataspaceHierarchy">
+            <End Role="DataspaceHierarchy" EntitySet="DataspaceHierarchies" />
+            <End Role="DataspaceHierarchyMapping" EntitySet="DataspaceHierarchyMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceHierarchyMapping_ManagedType" Association="RotterdamStaticModel.FK_DataspaceHierarchyMapping_ManagedType">
+            <End Role="ManagedType" EntitySet="ManagedTypes" />
+            <End Role="DataspaceHierarchyMapping" EntitySet="DataspaceHierarchyMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypePropertyMapping_DataspaceProperty" Association="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_DataspaceProperty">
+            <End Role="DataspaceProperty" EntitySet="DataspaceProperties" />
+            <End Role="DataspaceTypePropertyMapping" EntitySet="DataspaceTypePropertyMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceReference_ManagedEntity" Association="RotterdamStaticModel.FK_DataspaceReference_ManagedEntity">
+            <End Role="ManagedEntity" EntitySet="ManagedEntities" />
+            <End Role="DataspaceReference" EntitySet="DataspaceReferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypeMapping_DataspaceTypeMapping" Association="RotterdamStaticModel.FK_DataspaceTypeMapping_DataspaceTypeMapping">
+            <End Role="ManagedType" EntitySet="ManagedTypes" />
+            <End Role="DataspaceTypeMapping" EntitySet="DataspaceTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataspaceTypePropertyMapping_ManagedTypeProperty" Association="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_ManagedTypeProperty">
+            <End Role="ManagedTypeProperty" EntitySet="ManagedTypeProperties" />
+            <End Role="DataspaceTypePropertyMapping" EntitySet="DataspaceTypePropertyMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedEntity_ManagedType" Association="RotterdamStaticModel.FK_ManagedEntity_ManagedType">
+            <End Role="ManagedType" EntitySet="ManagedTypes" />
+            <End Role="ManagedEntity" EntitySet="ManagedEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTreeEntity_ManagedEntity" Association="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedEntity">
+            <End Role="ManagedEntity" EntitySet="ManagedEntities" />
+            <End Role="ManagedTreeEntity" EntitySet="ManagedTreeEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTreeEntity_ManagedTree" Association="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedTree">
+            <End Role="ManagedTree" EntitySet="ManagedTrees" />
+            <End Role="ManagedTreeEntity" EntitySet="ManagedTreeEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTypeProperty_ManagedType" Association="RotterdamStaticModel.FK_ManagedTypeProperty_ManagedType">
+            <End Role="ManagedType" EntitySet="ManagedTypes" />
+            <End Role="ManagedTypeProperty" EntitySet="ManagedTypeProperties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagedTreeEntityParentId" Association="RotterdamStaticModel.FK_ManagedTreeEntityParentId">
+            <End Role="ManagedTreeEntity" EntitySet="ManagedTreeEntities" />
+            <End Role="ManagedTreeEntity1" EntitySet="ManagedTreeEntities" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Dataspace">
+          <Key>
+            <PropertyRef Name="DataspaceId" />
+          </Key>
+          <Property Name="DataspaceId" Type="Guid" Nullable="false" />
+          <Property Name="ProviderId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Realm" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Object" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="IsIngested" Type="Boolean" Nullable="false" />
+          <Property Name="Bookmark" Type="DateTime" Precision="3" />
+          <Property Name="Configuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Filter" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Cachespace" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DataspaceHierarchies" Relationship="RotterdamStaticModel.FK_DataspaceHierarchy_Dataspace" FromRole="Dataspace" ToRole="DataspaceHierarchy" />
+          <NavigationProperty Name="DataspaceTypeMappings" Relationship="RotterdamStaticModel.FK_DataspaceTypeMapping_Dataspace" FromRole="Dataspace" ToRole="DataspaceTypeMapping" />
+        </EntityType>
+        <EntityType Name="DataspaceHierarchy">
+          <Key>
+            <PropertyRef Name="DataspaceHierarchyId" />
+          </Key>
+          <Property Name="DataspaceHierarchyId" Type="Guid" Nullable="false" />
+          <Property Name="DataspaceId" Type="Guid" Nullable="false" />
+          <Property Name="DataspacePropertyId" Type="Guid" Nullable="false" />
+          <Property Name="RegularExpression" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dataspace" Relationship="RotterdamStaticModel.FK_DataspaceHierarchy_Dataspace" FromRole="DataspaceHierarchy" ToRole="Dataspace" />
+          <NavigationProperty Name="DataspaceProperty" Relationship="RotterdamStaticModel.FK_DataspaceHierarchy_DataspaceProperty" FromRole="DataspaceHierarchy" ToRole="DataspaceProperty" />
+          <NavigationProperty Name="DataspaceHierarchyMappings" Relationship="RotterdamStaticModel.FK_DataspaceHierarchyMapping_DataspaceHierarchy" FromRole="DataspaceHierarchy" ToRole="DataspaceHierarchyMapping" />
+        </EntityType>
+        <EntityType Name="DataspaceHierarchyMapping">
+          <Key>
+            <PropertyRef Name="DataspaceHierarchyMappingId" />
+          </Key>
+          <Property Name="DataspaceHierarchyMappingId" Type="Guid" Nullable="false" />
+          <Property Name="DataspaceHierarchyId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="Guid" Nullable="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DataspaceHierarchy" Relationship="RotterdamStaticModel.FK_DataspaceHierarchyMapping_DataspaceHierarchy" FromRole="DataspaceHierarchyMapping" ToRole="DataspaceHierarchy" />
+          <NavigationProperty Name="ManagedType" Relationship="RotterdamStaticModel.FK_DataspaceHierarchyMapping_ManagedType" FromRole="DataspaceHierarchyMapping" ToRole="ManagedType" />
+        </EntityType>
+        <EntityType Name="DataspaceProperty">
+          <Key>
+            <PropertyRef Name="DataspacePropertyId" />
+          </Key>
+          <Property Name="DataspacePropertyId" Type="Guid" Nullable="false" />
+          <Property Name="DataspaceId" Type="Guid" Nullable="false" />
+          <Property Name="IsKey" Type="Boolean" Nullable="false" />
+          <Property Name="IsSystem" Type="Boolean" Nullable="false" />
+          <Property Name="Property" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Regex" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Flag" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SystemName" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DataspaceHierarchies" Relationship="RotterdamStaticModel.FK_DataspaceHierarchy_DataspaceProperty" FromRole="DataspaceProperty" ToRole="DataspaceHierarchy" />
+          <NavigationProperty Name="DataspaceTypePropertyMappings" Relationship="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_DataspaceProperty" FromRole="DataspaceProperty" ToRole="DataspaceTypePropertyMapping" />
+        </EntityType>
+        <EntityType Name="DataspaceReference">
+          <Key>
+            <PropertyRef Name="ProviderDataspaceReferenceId" />
+          </Key>
+          <Property Name="ProviderDataspaceReferenceId" Type="Guid" Nullable="false" />
+          <Property Name="DataspaceId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedEntityId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ManagedEntity" Relationship="RotterdamStaticModel.FK_DataspaceReference_ManagedEntity" FromRole="DataspaceReference" ToRole="ManagedEntity" />
+        </EntityType>
+        <EntityType Name="DataspaceTypeMapping">
+          <Key>
+            <PropertyRef Name="DataspaceTypeMappingId" />
+          </Key>
+          <Property Name="DataspaceTypeMappingId" Type="Guid" Nullable="false" />
+          <Property Name="DataspaceId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Dataspace" Relationship="RotterdamStaticModel.FK_DataspaceTypeMapping_Dataspace" FromRole="DataspaceTypeMapping" ToRole="Dataspace" />
+          <NavigationProperty Name="ManagedType" Relationship="RotterdamStaticModel.FK_DataspaceTypeMapping_DataspaceTypeMapping" FromRole="DataspaceTypeMapping" ToRole="ManagedType" />
+        </EntityType>
+        <EntityType Name="DataspaceTypePropertyMapping">
+          <Key>
+            <PropertyRef Name="DataspaceTypeMappingAttributeId" />
+          </Key>
+          <Property Name="DataspaceTypeMappingAttributeId" Type="Guid" Nullable="false" />
+          <Property Name="DataspacePropertyId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedTypePropertyId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DataspaceProperty" Relationship="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_DataspaceProperty" FromRole="DataspaceTypePropertyMapping" ToRole="DataspaceProperty" />
+          <NavigationProperty Name="ManagedTypeProperty" Relationship="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_ManagedTypeProperty" FromRole="DataspaceTypePropertyMapping" ToRole="ManagedTypeProperty" />
+        </EntityType>
+        <EntityType Name="ManagedEntity">
+          <Key>
+            <PropertyRef Name="ManagedEntityId" />
+          </Key>
+          <Property Name="ManagedEntityId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DataspaceReferences" Relationship="RotterdamStaticModel.FK_DataspaceReference_ManagedEntity" FromRole="ManagedEntity" ToRole="DataspaceReference" />
+          <NavigationProperty Name="ManagedType" Relationship="RotterdamStaticModel.FK_ManagedEntity_ManagedType" FromRole="ManagedEntity" ToRole="ManagedType" />
+          <NavigationProperty Name="ManagedTreeEntity" Relationship="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedEntity" FromRole="ManagedEntity" ToRole="ManagedTreeEntity" />
+        </EntityType>
+        <EntityType Name="ManagedTree">
+          <Key>
+            <PropertyRef Name="ManagedTreeId" />
+          </Key>
+          <Property Name="ManagedTreeId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ManagedTreeEntities" Relationship="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedTree" FromRole="ManagedTree" ToRole="ManagedTreeEntity" />
+        </EntityType>
+        <EntityType Name="ManagedTreeEntity">
+          <Key>
+            <PropertyRef Name="ManagedTreeEntityId" />
+          </Key>
+          <Property Name="ManagedTreeEntityId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedTreeId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedEntityId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ManagedEntity" Relationship="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedEntity" FromRole="ManagedTreeEntity" ToRole="ManagedEntity" />
+          <NavigationProperty Name="ManagedTree" Relationship="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedTree" FromRole="ManagedTreeEntity" ToRole="ManagedTree" />
+          <Property Name="ManagedTreeEntityParentId" Type="Guid" />
+          <NavigationProperty Name="ManagedTreeEntity1" Relationship="RotterdamStaticModel.FK_ManagedTreeEntityParentId" FromRole="ManagedTreeEntity" ToRole="ManagedTreeEntity1" />
+          <NavigationProperty Name="ManagedTreeEntity2" Relationship="RotterdamStaticModel.FK_ManagedTreeEntityParentId" FromRole="ManagedTreeEntity1" ToRole="ManagedTreeEntity" />
+        </EntityType>
+        <EntityType Name="ManagedType">
+          <Key>
+            <PropertyRef Name="ManagedTypeId" />
+          </Key>
+          <Property Name="ManagedTypeId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedTypeTableName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ManagedTypeViewName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsAbstract" Type="Boolean" Nullable="false" />
+          <Property Name="IsSingleton" Type="Boolean" Nullable="false" />
+          <Property Name="IsExtension" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DataspaceHierarchyMappings" Relationship="RotterdamStaticModel.FK_DataspaceHierarchyMapping_ManagedType" FromRole="ManagedType" ToRole="DataspaceHierarchyMapping" />
+          <NavigationProperty Name="DataspaceTypeMappings" Relationship="RotterdamStaticModel.FK_DataspaceTypeMapping_DataspaceTypeMapping" FromRole="ManagedType" ToRole="DataspaceTypeMapping" />
+          <NavigationProperty Name="ManagedEntities" Relationship="RotterdamStaticModel.FK_ManagedEntity_ManagedType" FromRole="ManagedType" ToRole="ManagedEntity" />
+          <NavigationProperty Name="ManagedTypeProperties" Relationship="RotterdamStaticModel.FK_ManagedTypeProperty_ManagedType" FromRole="ManagedType" ToRole="ManagedTypeProperty" />
+        </EntityType>
+        <EntityType Name="ManagedTypeProperty">
+          <Key>
+            <PropertyRef Name="ManagedTypePropertyId" />
+          </Key>
+          <Property Name="ManagedTypePropertyId" Type="Guid" Nullable="false" />
+          <Property Name="ManagedTypeId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ColumnName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRequired" Type="Boolean" Nullable="false" />
+          <Property Name="IsPrimaryKey" Type="Boolean" Nullable="false" />
+          <Property Name="IsCaseSensitive" Type="Boolean" Nullable="false" />
+          <Property Name="IsWriteableByUser" Type="Boolean" Nullable="false" />
+          <Property Name="IsWriteableByDataspace" Type="Boolean" Nullable="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="MinLength" Type="Int32" Nullable="false" />
+          <Property Name="MaxLength" Type="Int32" Nullable="false" />
+          <Property Name="MinValue" Type="Int32" />
+          <Property Name="MaxValue" Type="Int32" />
+          <Property Name="RegEx" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EnumTypeId" Type="Guid" />
+          <Property Name="DefaultValue" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DataspaceTypePropertyMappings" Relationship="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_ManagedTypeProperty" FromRole="ManagedTypeProperty" ToRole="DataspaceTypePropertyMapping" />
+          <NavigationProperty Name="ManagedType" Relationship="RotterdamStaticModel.FK_ManagedTypeProperty_ManagedType" FromRole="ManagedTypeProperty" ToRole="ManagedType" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="Guid" Nullable="false" />
+          <Property Name="ProviderName" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="AssemblyName" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="AssemblyPath" Type="String" Nullable="false" MaxLength="2048" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="IsIngested" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProviderEndpoint">
+          <Key>
+            <PropertyRef Name="ProviderEndpointId" />
+          </Key>
+          <Property Name="ProviderEndpointId" Type="Guid" Nullable="false" />
+          <Property Name="TypeId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Endpoint" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_DataspaceHierarchy_Dataspace">
+          <End Type="RotterdamStaticModel.Dataspace" Role="Dataspace" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceHierarchy" Role="DataspaceHierarchy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dataspace">
+              <PropertyRef Name="DataspaceId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchy">
+              <PropertyRef Name="DataspaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypeMapping_Dataspace">
+          <End Type="RotterdamStaticModel.Dataspace" Role="Dataspace" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceTypeMapping" Role="DataspaceTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dataspace">
+              <PropertyRef Name="DataspaceId" />
+            </Principal>
+            <Dependent Role="DataspaceTypeMapping">
+              <PropertyRef Name="DataspaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceHierarchy_DataspaceProperty">
+          <End Type="RotterdamStaticModel.DataspaceProperty" Role="DataspaceProperty" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceHierarchy" Role="DataspaceHierarchy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataspaceProperty">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchy">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceHierarchyMapping_DataspaceHierarchy">
+          <End Type="RotterdamStaticModel.DataspaceHierarchy" Role="DataspaceHierarchy" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceHierarchyMapping" Role="DataspaceHierarchyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataspaceHierarchy">
+              <PropertyRef Name="DataspaceHierarchyId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchyMapping">
+              <PropertyRef Name="DataspaceHierarchyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceHierarchyMapping_ManagedType">
+          <End Type="RotterdamStaticModel.ManagedType" Role="ManagedType" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceHierarchyMapping" Role="DataspaceHierarchyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="DataspaceHierarchyMapping">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypePropertyMapping_DataspaceProperty">
+          <End Type="RotterdamStaticModel.DataspaceProperty" Role="DataspaceProperty" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceTypePropertyMapping" Role="DataspaceTypePropertyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataspaceProperty">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Principal>
+            <Dependent Role="DataspaceTypePropertyMapping">
+              <PropertyRef Name="DataspacePropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceReference_ManagedEntity">
+          <End Type="RotterdamStaticModel.ManagedEntity" Role="ManagedEntity" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceReference" Role="DataspaceReference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedEntity">
+              <PropertyRef Name="ManagedEntityId" />
+            </Principal>
+            <Dependent Role="DataspaceReference">
+              <PropertyRef Name="ManagedEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypeMapping_DataspaceTypeMapping">
+          <End Type="RotterdamStaticModel.ManagedType" Role="ManagedType" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceTypeMapping" Role="DataspaceTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="DataspaceTypeMapping">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataspaceTypePropertyMapping_ManagedTypeProperty">
+          <End Type="RotterdamStaticModel.ManagedTypeProperty" Role="ManagedTypeProperty" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.DataspaceTypePropertyMapping" Role="DataspaceTypePropertyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedTypeProperty">
+              <PropertyRef Name="ManagedTypePropertyId" />
+            </Principal>
+            <Dependent Role="DataspaceTypePropertyMapping">
+              <PropertyRef Name="ManagedTypePropertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedEntity_ManagedType">
+          <End Type="RotterdamStaticModel.ManagedType" Role="ManagedType" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.ManagedEntity" Role="ManagedEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="ManagedEntity">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTreeEntity_ManagedEntity">
+          <End Type="RotterdamStaticModel.ManagedEntity" Role="ManagedEntity" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.ManagedTreeEntity" Role="ManagedTreeEntity" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedEntity">
+              <PropertyRef Name="ManagedEntityId" />
+            </Principal>
+            <Dependent Role="ManagedTreeEntity">
+              <PropertyRef Name="ManagedTreeEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTreeEntity_ManagedTree">
+          <End Type="RotterdamStaticModel.ManagedTree" Role="ManagedTree" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.ManagedTreeEntity" Role="ManagedTreeEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedTree">
+              <PropertyRef Name="ManagedTreeId" />
+            </Principal>
+            <Dependent Role="ManagedTreeEntity">
+              <PropertyRef Name="ManagedTreeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTypeProperty_ManagedType">
+          <End Type="RotterdamStaticModel.ManagedType" Role="ManagedType" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.ManagedTypeProperty" Role="ManagedTypeProperty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedType">
+              <PropertyRef Name="ManagedTypeId" />
+            </Principal>
+            <Dependent Role="ManagedTypeProperty">
+              <PropertyRef Name="ManagedTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagedTreeEntityParentId">
+          <End Type="RotterdamStaticModel.ManagedTreeEntity" Role="ManagedTreeEntity" Multiplicity="1" />
+          <End Type="RotterdamStaticModel.ManagedTreeEntity" Role="ManagedTreeEntity1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ManagedTreeEntity">
+              <PropertyRef Name="ManagedTreeEntityId" />
+            </Principal>
+            <Dependent Role="ManagedTreeEntity1">
+              <PropertyRef Name="ManagedTreeEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RotterdamStaticModelStoreContainer" CdmEntityContainer="RotterdamContext">
+          <EntitySetMapping Name="Dataspaces">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.Dataspace">
+              <MappingFragment StoreEntitySet="Dataspace">
+                <ScalarProperty Name="Cachespace" ColumnName="Cachespace" />
+                <ScalarProperty Name="Filter" ColumnName="Filter" />
+                <ScalarProperty Name="Configuration" ColumnName="Configuration" />
+                <ScalarProperty Name="Bookmark" ColumnName="Bookmark" />
+                <ScalarProperty Name="IsIngested" ColumnName="IsIngested" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Object" ColumnName="Object" />
+                <ScalarProperty Name="Realm" ColumnName="Realm" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="DataspaceId" ColumnName="DataspaceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataspaceHierarchies">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.DataspaceHierarchy">
+              <MappingFragment StoreEntitySet="DataspaceHierarchy">
+                <ScalarProperty Name="RegularExpression" ColumnName="RegularExpression" />
+                <ScalarProperty Name="DataspacePropertyId" ColumnName="DataspacePropertyId" />
+                <ScalarProperty Name="DataspaceId" ColumnName="DataspaceId" />
+                <ScalarProperty Name="DataspaceHierarchyId" ColumnName="DataspaceHierarchyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataspaceHierarchyMappings">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.DataspaceHierarchyMapping">
+              <MappingFragment StoreEntitySet="DataspaceHierarchyMapping">
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="ManagedTypeId" ColumnName="ManagedTypeId" />
+                <ScalarProperty Name="DataspaceHierarchyId" ColumnName="DataspaceHierarchyId" />
+                <ScalarProperty Name="DataspaceHierarchyMappingId" ColumnName="DataspaceHierarchyMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataspaceProperties">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.DataspaceProperty">
+              <MappingFragment StoreEntitySet="DataspaceProperty">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="Regex" ColumnName="Regex" />
+                <ScalarProperty Name="Property" ColumnName="Property" />
+                <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+                <ScalarProperty Name="IsKey" ColumnName="IsKey" />
+                <ScalarProperty Name="DataspaceId" ColumnName="DataspaceId" />
+                <ScalarProperty Name="DataspacePropertyId" ColumnName="DataspacePropertyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataspaceReferences">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.DataspaceReference">
+              <MappingFragment StoreEntitySet="DataspaceReference">
+                <ScalarProperty Name="ManagedEntityId" ColumnName="ManagedEntityId" />
+                <ScalarProperty Name="DataspaceId" ColumnName="DataspaceId" />
+                <ScalarProperty Name="ProviderDataspaceReferenceId" ColumnName="ProviderDataspaceReferenceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataspaceTypeMappings">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.DataspaceTypeMapping">
+              <MappingFragment StoreEntitySet="DataspaceTypeMapping">
+                <ScalarProperty Name="ManagedTypeId" ColumnName="ManagedTypeId" />
+                <ScalarProperty Name="DataspaceId" ColumnName="DataspaceId" />
+                <ScalarProperty Name="DataspaceTypeMappingId" ColumnName="DataspaceTypeMappingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataspaceTypePropertyMappings">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.DataspaceTypePropertyMapping">
+              <MappingFragment StoreEntitySet="DataspaceTypePropertyMapping">
+                <ScalarProperty Name="ManagedTypePropertyId" ColumnName="ManagedTypePropertyId" />
+                <ScalarProperty Name="DataspacePropertyId" ColumnName="DataspacePropertyId" />
+                <ScalarProperty Name="DataspaceTypeMappingAttributeId" ColumnName="DataspaceTypeMappingAttributeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagedEntities">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.ManagedEntity">
+              <MappingFragment StoreEntitySet="ManagedEntity">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ManagedTypeId" ColumnName="ManagedTypeId" />
+                <ScalarProperty Name="ManagedEntityId" ColumnName="ManagedEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagedTrees">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.ManagedTree">
+              <MappingFragment StoreEntitySet="ManagedTree">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ManagedTreeId" ColumnName="ManagedTreeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagedTreeEntities">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.ManagedTreeEntity">
+              <MappingFragment StoreEntitySet="ManagedTreeEntity">
+                <ScalarProperty Name="ManagedTreeEntityParentId" ColumnName="ManagedTreeEntityParentId" />
+                <ScalarProperty Name="ManagedEntityId" ColumnName="ManagedEntityId" />
+                <ScalarProperty Name="ManagedTreeId" ColumnName="ManagedTreeId" />
+                <ScalarProperty Name="ManagedTreeEntityId" ColumnName="ManagedTreeEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagedTypes">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.ManagedType">
+              <MappingFragment StoreEntitySet="ManagedType">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsExtension" ColumnName="IsExtension" />
+                <ScalarProperty Name="IsSingleton" ColumnName="IsSingleton" />
+                <ScalarProperty Name="IsAbstract" ColumnName="IsAbstract" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ManagedTypeViewName" ColumnName="ManagedTypeViewName" />
+                <ScalarProperty Name="ManagedTypeTableName" ColumnName="ManagedTypeTableName" />
+                <ScalarProperty Name="ManagedTypeId" ColumnName="ManagedTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagedTypeProperties">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.ManagedTypeProperty">
+              <MappingFragment StoreEntitySet="ManagedTypeProperty">
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="EnumTypeId" ColumnName="EnumTypeId" />
+                <ScalarProperty Name="RegEx" ColumnName="RegEx" />
+                <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
+                <ScalarProperty Name="MinValue" ColumnName="MinValue" />
+                <ScalarProperty Name="MaxLength" ColumnName="MaxLength" />
+                <ScalarProperty Name="MinLength" ColumnName="MinLength" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="IsWriteableByDataspace" ColumnName="IsWriteableByDataspace" />
+                <ScalarProperty Name="IsWriteableByUser" ColumnName="IsWriteableByUser" />
+                <ScalarProperty Name="IsCaseSensitive" ColumnName="IsCaseSensitive" />
+                <ScalarProperty Name="IsPrimaryKey" ColumnName="IsPrimaryKey" />
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ManagedTypeId" ColumnName="ManagedTypeId" />
+                <ScalarProperty Name="ManagedTypePropertyId" ColumnName="ManagedTypePropertyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Providers">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.Provider">
+              <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="IsIngested" ColumnName="IsIngested" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="AssemblyPath" ColumnName="AssemblyPath" />
+                <ScalarProperty Name="AssemblyName" ColumnName="AssemblyName" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderEndpoints">
+            <EntityTypeMapping TypeName="RotterdamStaticModel.ProviderEndpoint">
+              <MappingFragment StoreEntitySet="ProviderEndpoint">
+                <ScalarProperty Name="Endpoint" ColumnName="Endpoint" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="ProviderEndpointId" ColumnName="ProviderEndpointId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

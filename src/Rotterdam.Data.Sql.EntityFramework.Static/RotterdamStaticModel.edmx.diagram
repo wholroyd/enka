@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6c7f92017c2445209019372fb94420ce" Name="_All">
+        <EntityTypeShape EntityType="RotterdamStaticModel.Dataspace" Width="1.5" PointX="1.5" PointY="24.375" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.DataspaceHierarchy" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.DataspaceHierarchyMapping" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.DataspaceProperty" Width="1.5" PointX="1.5" PointY="20.5" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.DataspaceReference" Width="1.5" PointX="5.25" PointY="11.5" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.DataspaceTypeMapping" Width="1.5" PointX="6" PointY="8.625" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.DataspaceTypePropertyMapping" Width="1.5" PointX="5.25" PointY="18" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.ManagedEntity" Width="1.5" PointX="3" PointY="11" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.ManagedTree" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.ManagedTreeEntity" Width="1.5" PointX="5.25" PointY="14.375" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.ManagedType" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.ManagedTypeProperty" Width="1.5" PointX="3" PointY="14.5" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.Provider" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RotterdamStaticModel.ProviderEndpoint" Width="1.5" PointX="4.75" PointY="0.75" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceHierarchy_Dataspace" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceTypeMapping_Dataspace" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceHierarchy_DataspaceProperty" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceHierarchyMapping_DataspaceHierarchy" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceHierarchyMapping_ManagedType" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_DataspaceProperty" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceReference_ManagedEntity" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceTypeMapping_DataspaceTypeMapping" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_DataspaceTypePropertyMapping_ManagedTypeProperty" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_ManagedEntity_ManagedType" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedEntity" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_ManagedTreeEntity_ManagedTree" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_ManagedTypeProperty_ManagedType" />
+        <AssociationConnector Association="RotterdamStaticModel.FK_ManagedTreeEntityParentId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

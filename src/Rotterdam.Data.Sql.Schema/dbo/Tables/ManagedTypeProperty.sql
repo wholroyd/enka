@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[ManagedTypeProperty] (
+    [ManagedTypePropertyId]  UNIQUEIDENTIFIER NOT NULL,
+    [ManagedTypeId]          UNIQUEIDENTIFIER NOT NULL,
+    [Name]                   NVARCHAR (256)   NOT NULL,
+    [ColumnName]             NVARCHAR (128)   NULL,
+    [DateCreated]            DATETIME         CONSTRAINT [DF_ManagedTypeProperty_DateCreated] DEFAULT (getutcdate()) NOT NULL,
+    [DateModified]           DATETIME         CONSTRAINT [DF_ManagedTypeProperty_DateModified] DEFAULT (getutcdate()) NOT NULL,
+    [IsRequired]             BIT              CONSTRAINT [DF_ManagedTypeProperty_IsRequired] DEFAULT ((0)) NOT NULL,
+    [IsPrimaryKey]           BIT              CONSTRAINT [DF_ManagedTypeProperty_IsPrimaryKey] DEFAULT ((0)) NOT NULL,
+    [IsCaseSensitive]        BIT              CONSTRAINT [DF_ManagedTypeProperty_IsCaseSensitive] DEFAULT ((0)) NOT NULL,
+    [IsWriteableByUser]      BIT              CONSTRAINT [DF_ManagedTypeProperty_IsWriteableByUser] DEFAULT ((1)) NOT NULL,
+    [IsWriteableByDataspace] BIT              CONSTRAINT [DF_ManagedTypeProperty_IsWriteableByDataspace] DEFAULT ((1)) NOT NULL,
+    [Ordinal]                INT              CONSTRAINT [DF_ManagedTypeProperty_Ordinal] DEFAULT ((0)) NOT NULL,
+    [MinLength]              INT              CONSTRAINT [DF_ManagedTypeProperty_MinLength] DEFAULT ((0)) NOT NULL,
+    [MaxLength]              INT              CONSTRAINT [DF_ManagedTypeProperty_MaxLength] DEFAULT ((2048)) NOT NULL,
+    [MinValue]               INT              NULL,
+    [MaxValue]               INT              NULL,
+    [RegEx]                  NVARCHAR (255)   NULL,
+    [EnumTypeId]             UNIQUEIDENTIFIER NULL,
+    [DefaultValue]           NVARCHAR (2000)  NULL,
+    CONSTRAINT [PK_ManagedTypeProperty] PRIMARY KEY NONCLUSTERED ([ManagedTypePropertyId] ASC),
+    CONSTRAINT [FK_ManagedTypeProperty_ManagedType] FOREIGN KEY ([ManagedTypeId]) REFERENCES [dbo].[ManagedType] ([ManagedTypeId]),
+    CONSTRAINT [ManagedTypeProperty_UniqueName] UNIQUE NONCLUSTERED ([ManagedTypeId] ASC, [Name] ASC)
+);
+
