@@ -16,23 +16,23 @@ data sources
 
 Some of the example systems that Enka will be able to read from out of the box include...
 
-Microsoft System Center Service Manager (SCSM) 2012 or higher
-Microsoft System Center Operations Manager (SCOM) 2012 or higher
-Microsoft System Center Configuration Manager (SCCM) 2012 or higher
-Microsoft System Center Virtual Machine Manager (SCVMM) 2012 or higher
-Microsoft Active Directory Domain Services (AD DS) 2008 R2 or higher
-Microsoft SQL Server 2008 R2 or higher
-MongoDB 2.6.x
-Amazon AWS EC2
+- Microsoft System Center Service Manager (SCSM) 2012 or higher
+- Microsoft System Center Operations Manager (SCOM) 2012 or higher
+- Microsoft System Center Configuration Manager (SCCM) 2012 or higher
+- Microsoft System Center Virtual Machine Manager (SCVMM) 2012 or higher
+- Microsoft Active Directory Domain Services (AD DS) 2008 R2 or higher
+- Microsoft SQL Server 2008 R2 or higher
+- MongoDB 2.6.x
+- Amazon AWS EC2
 
 Parseable web service protocols...
 
-OData web service
-REST web service
+- OData web service
+- REST web service
 
 Parseable file formats...
 
-INI file format
-CSV File format
-XML File format
-JSON File format
+- INI file format
+- CSV File format
+- XML File format
+- JSON File format
